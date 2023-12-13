@@ -9,7 +9,7 @@ export default function GetOrder() {
         try {
             const token = localStorage.getItem("userToken");
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/order`, {
-                headers: { Authorization: `Tariq__${token}` }
+                headers: { Authorization: `Tariq__${token} `}
             });
 
             console.log(response.data);
@@ -23,66 +23,34 @@ export default function GetOrder() {
         getUserOrder();
     }, []); 
     return (
-        <div>
-
-<div className="row">
-          <div className="cart-items">
-            <div className="products" id="products">
-
-              <div className="item">
-                <div className="product-info">
-                  <h2>Product</h2>
-                </div>
-                <div className="quantity">
-                  <h2>Quantity</h2>
-                </div>
-                <div className="price">
-                  <h2>Price</h2>
-                </div>
-                <div className="subtotal">
-                  <h2>Subtotal</h2>
-                </div>
-              </div>
-
+        <div  >
               {getorder.length > 0 ? (
                 getorder.map((order) => (
                     <div className="item" key={order._id} >
-                    <div className="product-info">
-                      <div className="product-details">
-                        <h2>{order.userId}</h2>
-                        
-                      </div>
-                    </div>
-
-                    {getorder.length>0?(order.products.map((product) => (
+                        <h1>Order</h1>
+                        {getorder.length>0?(order.products.map((product) => (
                         <div  key={product._id} >
+                            <h2>Item</h2>
                             <div >
-                               <span>{product.quantity }</span>
+                               <span>Product Quantity: {product.quantity }</span>
                             </div>
 
-                            <div className="price">${product.unitPrice}</div> 
+                            <div className="price">Unit Price: ${product.unitPrice}</div> 
 
-                            <div className="subtotal" >${product.finalPrice}</div>
+                            <div className="subtotal" >Final Price: ${product.finalPrice}</div>
                         </div>   
                          
                     ))):"no items"}
-                    <div className="subtotal">${order.finalPrice}</div>
+                    <div className="subtotal">
+                        <h3>Order Final Price: </h3>
+                         ${order.finalPrice}
+                    </div>
                    
                   </div>
                 ))
             ) : (
                 "No orders"
             )}
-
-            </div>
-          </div>
-      </div>
-
-
-
-
-
         </div>
     );
 }
-
